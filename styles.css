@@ -1,0 +1,28 @@
+#displayPokemonGrid {}
+
+#displayPokemon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    border-radius: 5%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    list-style: none;
+    font-size: 16px;
+    -webkit-border-radius: 5%;
+    -moz-border-radius: 5%;
+    -ms-border-radius: 5%;
+    -o-border-radius: 5%;
+    height: auto;
+}
+
+#displayPokemon li {
+    border: 2px solid blue;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-right: 5%;
+}
