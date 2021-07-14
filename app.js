@@ -23,7 +23,7 @@ inputSizeValue.addEventListener('keyup', (e) => {
 });
 
 btn.addEventListener('click', () => {
-    generate(0, 1000);
+    generate();
 });
 
 function preventNonNumericalInput(e) {
@@ -42,330 +42,63 @@ function ucFirst(str) {
     return firstLetter.toUpperCase() + str.substr(1);
 }
 
-async function generate(offset, limit) {
+async function getPokemonLists(offset, limit) {
+    // 
     pokemonDisplay.innerHTML = '';
-
+    let value = typeSelector.value;
     const interval = {
         offset: offset,
         limit: limit,
     };
 
-    let value = typeSelector.value;
+    // assign variable to Promises, call with Promise.all([]);
 
-
-    let getNameList = await P.getPokemonsList(interval);
-    let getTypeList = await P.getTypeByName(`${value}`);
+    let [getNameList, getTypeList] = await Promise.all([P.getPokemonsList(interval), P.getTypeByName(`${value}`)]);
 
     let pokemonNameList = getNameList.results;
     let pokemonTypeList = getTypeList.pokemon;
 
-    // conditional type select based on select option
-    if (value === 'normal') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+    for (let i = 0; i < inputSizeValue.value; i++) {
+        const li = document.createElement("li");
+        pokemonDisplay.appendChild(li);
+        li.append(ucFirst(pokemonTypeList[i].pokemon.name));
 
-            let img = document.createElement("img");
-            li.appendChild(img);
+        let img = document.createElement("img");
+        li.appendChild(img);
 
-            let findName = pokemonDisplay.childNodes[i].innerText;
+        let findName = pokemonDisplay.childNodes[i].innerText;
 
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+        let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
 
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'fire') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'water') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'grass') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'electric') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'ice') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'fighting') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'poison') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'ground') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'flying') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'psychic') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'bug') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'rock') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'ghost') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'dark') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'dragon') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'steel') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else if (value === 'fairy') {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
-    } else {
-        for (let i = 0; i < inputSizeValue.value; i++) {
-            const li = document.createElement("li");
-            pokemonDisplay.appendChild(li);
-            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
-
-            let img = document.createElement("img");
-            li.appendChild(img);
-
-            let findName = pokemonDisplay.childNodes[i].innerText;
-
-            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
-
-            img.src = getPokemon.sprites.front_default;
-        }
+        img.src = getPokemon.sprites.front_default;
     }
 }
 
-// generate list of pokemon; using offset and limit
-// async function listPokemon(offset, limit) {
-//     pokemonDisplay.innerHTML = "";
-//     const interval = {
-//         offset: offset,
-//         limit: limit,
-//     };
+async function generate() {
 
-//     generatePokeList = await P.getPokemonsList(interval);
+    let value = typeSelector.value;
 
-//     const list = generatePokeList.results;
+    validValues = [
+        'normal',
+        'fire',
+        'water',
+        'grass',
+        'electric',
+        'ice',
+        'fighting',
+        'poison',
+        'flying',
+        'psychic',
+        'bug',
+        'rock',
+        'ghost',
+        'dark',
+        'dragon',
+        'steel',
+        'fairy'
+    ]
 
-//     for (i = 0; i < inputSizeValue.value; i++) {
-
-//         li.append(ucFirst(list[i].name));
-
-//         pokemonDisplay.appendChild(li);
-
-
-//     }
-// }
+    if (validValues.includes(value)) {
+        await getPokemonLists(0, 1000);
+    }
+}
