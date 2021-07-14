@@ -4,9 +4,10 @@ const P = new Pokedex.Pokedex();
 const pokemonDisplay = document.querySelector("#displayPokemon");
 
 // input
-const inputSizeValue = document.querySelector("#pokesize");
+const inputSizeValue = document.querySelector('#pokesize');
+let typeSelector = document.getElementById('type-selector');
 
-// butt(on)
+// submit button
 const btn = document.querySelector('#submit');
 
 // function calls
@@ -18,12 +19,11 @@ inputSizeValue.addEventListener('keyup', (e) => {
     e.preventDefault();
     if (e.key === 'Enter') {
         btn.click();
-        listPokemon(0, 1000);
     }
 });
 
 btn.addEventListener('click', () => {
-    listPokemon(0, 1000);
+    generate(0, 1000);
 });
 
 function preventNonNumericalInput(e) {
@@ -42,31 +42,330 @@ function ucFirst(str) {
     return firstLetter.toUpperCase() + str.substr(1);
 }
 
+async function generate(offset, limit) {
+    pokemonDisplay.innerHTML = '';
 
-// generate list of pokemon; using offset and limit
-async function listPokemon(offset, limit) {
-    pokemonDisplay.innerHTML = "";
     const interval = {
         offset: offset,
         limit: limit,
     };
 
-    generatePokeList = await P.getPokemonsList(interval);
+    let value = typeSelector.value;
 
-    const list = generatePokeList.results;
 
-    for (i = 0; i < inputSizeValue.value; i++) {
-        const li = document.createElement("li");
-        const img = document.createElement("img");
+    let getNameList = await P.getPokemonsList(interval);
+    let getTypeList = await P.getTypeByName(`${value}`);
 
-        img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-      i + 1
-    }.png`;
+    let pokemonNameList = getNameList.results;
+    let pokemonTypeList = getTypeList.pokemon;
 
-        li.append(ucFirst(list[i].name));
+    // conditional type select based on select option
+    if (value === 'normal') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
 
-        pokemonDisplay.appendChild(li);
+            let img = document.createElement("img");
+            li.appendChild(img);
 
-        li.append(img);
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'fire') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'water') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'grass') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'electric') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'ice') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'fighting') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'poison') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'ground') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'flying') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'psychic') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'bug') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'rock') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'ghost') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'dark') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'dragon') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'steel') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else if (value === 'fairy') {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
+    } else {
+        for (let i = 0; i < inputSizeValue.value; i++) {
+            const li = document.createElement("li");
+            pokemonDisplay.appendChild(li);
+            li.append(ucFirst(pokemonTypeList[i].pokemon.name));
+
+            let img = document.createElement("img");
+            li.appendChild(img);
+
+            let findName = pokemonDisplay.childNodes[i].innerText;
+
+            let getPokemon = await P.getPokemonByName(`${findName.toLowerCase()}`);
+
+            img.src = getPokemon.sprites.front_default;
+        }
     }
 }
+
+// generate list of pokemon; using offset and limit
+// async function listPokemon(offset, limit) {
+//     pokemonDisplay.innerHTML = "";
+//     const interval = {
+//         offset: offset,
+//         limit: limit,
+//     };
+
+//     generatePokeList = await P.getPokemonsList(interval);
+
+//     const list = generatePokeList.results;
+
+//     for (i = 0; i < inputSizeValue.value; i++) {
+
+//         li.append(ucFirst(list[i].name));
+
+//         pokemonDisplay.appendChild(li);
+
+
+//     }
+// }
