@@ -1,0 +1,18 @@
+#displayPokemon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    flex-wrap: wrap;
+    flex-direction: row;
+    list-style: none;
+    font-size: 18px;
+    height: auto;
+}
+
+#displayPokemon li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-right: 5%;
+}
